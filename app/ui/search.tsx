@@ -7,12 +7,14 @@ import { useDebouncedCallback } from 'use-debounce';
 export default function Search({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  // note: use useRouter to change route, effecting action in invoice/page.tsx
   const { replace } = useRouter();
 
   const handleSerch = useDebouncedCallback((term) => {
     console.log(`Searching... ${term}`);
 
     const params = new URLSearchParams(searchParams);
+    params.set('page', '1');
     if (term) {
       params.set('query', term);
     } else {
